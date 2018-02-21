@@ -1,5 +1,3 @@
-// @flow
-
 import briteRest from './';
 
 describe('configurations', () => {

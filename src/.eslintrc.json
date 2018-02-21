@@ -1,0 +1,20 @@
+{
+    "extends": "eventbrite",
+    "env": {
+        "jest": true,
+        "browser": true,
+        "node": true
+    },
+    "parser": "typescript-eslint-parser",
+    "plugins": ["typescript"],
+    "rules": {
+        "no-undef": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".ts", ".js"]
+            }
+        }
+    }
+}

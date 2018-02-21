@@ -3,18 +3,12 @@
     "version": "0.0.0-semantically-released",
     "description": "The official JavaScript SDK for the Eventbrite v3 API",
     "author": "Eventbrite <npmjs@eventbrite.com>",
-    "main": "lib/umd/index.js",
+    "main": "lib/cjs/index.js",
     "module": "lib/esm/index.js",
     "jsnext:main": "lib/esm/index.js",
     "browser": "dist/brite-rest.js",
-    "keywords": [
-        "rest",
-        "api",
-        "sdk",
-        "events",
-        "tickets",
-        "eventbrite"
-    ],
+    "types": "lib/cjs/index.d.ts",
+    "keywords": ["rest", "api", "sdk", "events", "tickets", "eventbrite"],
     "repository": {
         "type": "git",
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript.git"
@@ -22,61 +16,43 @@
     "bugs": {
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript/issues"
     },
-    "homepage": "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
+    "homepage":
+        "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
     "license": "MIT",
     "scripts": {
-        "check": "npm-run-all --parallel lint flow --serial flow:coverage",
-        "flow": "flow check",
-        "flow:coverage": "flow-coverage-report -i 'src/**/*.js' -t text -t html",
+        "check:static": "npm-run-all --parallel lint 'tsc --noEmit'",
         "format": "prettier-eslint --write",
-        "lint": "eslint src",
+        "lint": "eslint --cache --max-warnings 0 --ext .ts,.js src",
         "precommit": "lint-staged",
-        "test": "jest",
+        "test": "jest --config=jest.json",
         "test:watch": "yarn test --watch",
+        "tsc": "tsc",
         "test:ci": "yarn test --ci",
-        "validate": "npm-run-all --parallel check test:ci"
+        "validate": "npm-run-all --parallel check:static test:ci"
     },
     "lint-staged": {
-        "src/**/*.js": [
-            "yarn format",
-            "git add"
-        ]
-    },
-    "eslintConfig": {
-        "extends": [
-            "eventbrite",
-            "plugin:flowtype/recommended"
-        ],
-        "plugins": [
-            "flowtype"
-        ],
-        "env": {
-            "jest": true,
-            "browser": true,
-            "node": true
-        }
+        "*.{ts,js}": ["yarn format", "git add"]
     },
     "dependencies": {
         "isomorphic-fetch": "^2.2.1",
         "lodash": "^4.17.5"
     },
     "devDependencies": {
-        "babel-core": "^6.26.0",
+        "@types/isomorphic-fetch": "^0.0.34",
+        "@types/jest": "^22.1.3",
+        "@types/lodash": "^4.14.104",
         "babel-eslint": "^7.0.0",
-        "babel-jest": "^22.2.2",
-        "babel-preset-env": "^1.6.1",
-        "babel-preset-flow": "^6.23.0",
         "eslint": "^3.0.0",
         "eslint-config-eventbrite": "^4.1.0",
-        "eslint-plugin-flowtype": "^2.44.0",
         "eslint-plugin-import": "^2.0.0",
-        "flow-bin": "^0.65.0",
-        "flow-coverage-report": "^0.4.1",
+        "eslint-plugin-typescript": "^0.8.1",
         "husky": "^0.14.3",
         "jest": "^22.3.0",
         "lint-staged": "^6.1.0",
         "node": "^8.9.2",
         "npm-run-all": "^4.1.2",
-        "prettier-eslint-cli": "^4.7.1"
+        "prettier-eslint-cli": "^4.7.1",
+        "typescript": "^2.7.2",
+        "typescript-eslint-parser": "^14.0.0"
     }
 }

@@ -1,0 +1,7 @@
+{
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+        "^.+\\.ts$": "<rootDir>/config/jest-preprocess-typescript.js"
+    },
+    "testMatch": ["**/src/**/*.spec.(ts|js)"]
+}

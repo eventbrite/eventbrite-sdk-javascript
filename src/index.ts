@@ -1,6 +1,4 @@
-// @flow
-
-type Sdk = {};
+export interface Sdk {}
 
 const briteRest = (): Sdk => ({});
 
