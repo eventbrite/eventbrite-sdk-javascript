@@ -5,7 +5,7 @@ const tsConfig = require("../tsconfig.json");
 module.exports = {
   process(src, fullPath) {
     if (path.extname(fullPath) === ".ts") {
-      return tsc.transpile(src, tsConfig.compilerOptions, path, []);
+      return tsc.transpile(src, tsConfig.compilerOptions, fullPath, []);
     }
     return src;
   }
