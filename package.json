@@ -25,7 +25,9 @@
         "precommit": "lint-staged",
         "test": "jest --config=jest.json",
         "test:watch": "yarn test --watch",
-        "build": "tsc --p ./tsconfig.build.json && babel src --ignore **/*.spec.ts --out-dir lib/cjs --extensions \".ts,.tsx\"",
+        "build": "npm-run-all --parallel build:declarations build:transpile",
+        "build:declarations": "tsc --p ./tsconfig.build.json",
+        "build:transpile": "babel src --ignore **/*.spec.ts --out-dir lib/cjs --extensions \".ts,.tsx\"",
         "tsc": "tsc",
         "test:ci": "yarn test --ci",
         "validate": "npm-run-all --parallel check:static test:ci"

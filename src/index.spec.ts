@@ -4,7 +4,10 @@ describe('configurations', () => {
     it('does not error when creating sdk object w/o token', () => {
         expect(() => briteRest()).not.toThrow();
     });
+});
 
+// TODO: remove when build process has stabilized
+describe('build functionality', () => {
     it('should compile while using async await', async () => {
         const result = await new Promise<number>((resolve) => resolve(1));
 
