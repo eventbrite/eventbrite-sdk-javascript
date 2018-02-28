@@ -8,7 +8,16 @@ Coming soon...
 
 ## Usage
 
-Coming soon...
+```js
+const sdk = require('eventbrite')({token: 'OATH_TOKEN_HERE'});
+
+// See: https://www.eventbrite.com/developer/v3/endpoints/users/#ebapi-get-users-id
+sdk.request('/users/me').then(res => {
+    // handle response data
+});
+```
+
+Read more on [getting a token](https://www.eventbrite.com/developer/v3/api_overview/authentication/#ebapi-getting-a-token).
 
 ## Contributing
 
@@ -16,7 +25,7 @@ Coming soon...
 
 ## Project philosophy
 
-We take the stability of this SDK **very** seriously. `brite-rest` follows the [SemVer](http://semver.org/) standard for versioning.
+We take the stability of this SDK **very** seriously. `eventbrite` follows the [SemVer](http://semver.org/) standard for versioning.
 
 ## License
 
