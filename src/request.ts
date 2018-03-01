@@ -1,4 +1,5 @@
-import {isObject} from 'lodash';
+import {isPlainObject} from 'lodash';
+import {JSONResponseData, ParsedResponseError} from './types';
 import 'isomorphic-fetch';
 
 /**
@@ -51,28 +52,9 @@ export const fetchJSON = (
         });
 };
 
-export interface ArgumentErrors {
-    [key: string]: [string];
-}
-
-export interface ParsedResponseError {
-    error: string;
-    description: string;
-    argumentErrors: ArgumentErrors;
-}
-
-export interface JSONResponseData {
-    error?: string;
-    error_description?: string;
-    error_detail?: {
-        ARGUMENTS_ERROR?: ArgumentErrors;
-        [propName: string]: any;
-    };
-}
-
 const hasArgumentsError = (responseData: JSONResponseData): boolean =>
-    isObject(responseData['error_detail']) &&
-    isObject(responseData['error_detail']['ARGUMENTS_ERROR']);
+    isPlainObject(responseData['error_detail']) &&
+    isPlainObject(responseData['error_detail']['ARGUMENTS_ERROR']);
 
 /**
  * Parse v3 errors into an array of objects representing the errors returned by

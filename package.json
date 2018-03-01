@@ -68,7 +68,7 @@
         "eslint": "^3.0.0",
         "eslint-config-eventbrite": "^4.1.0",
         "eslint-plugin-import": "^2.0.0",
-        "eslint-plugin-typescript": "^0.8.1",
+        "eslint-plugin-typescript": "^0.9.0",
         "husky": "^0.14.3",
         "jest": "^22.4.0",
         "lint-staged": "^6.1.0",

@@ -1,18 +1,10 @@
 /// <reference path="../definitions/url-lib.d.ts"/>
 
 import {formatUrl} from 'url-lib';
+import {Sdk, SdkConfig} from './types';
 import request from './request';
 
 const DEFAULT_API_URL = 'https://www.eventbriteapi.com/v3';
-
-export interface SdkConfig {
-    token?: string;
-    baseUrl?: string;
-}
-
-export interface Sdk {
-    request: (apiPath: string, options?: RequestInit) => Promise<{}>;
-}
 
 const eventbrite = ({
     baseUrl = DEFAULT_API_URL,

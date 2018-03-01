@@ -9,7 +9,10 @@ Coming soon...
 ## Usage
 
 ```js
-const sdk = require('eventbrite')({token: 'OATH_TOKEN_HERE'});
+const eventbrite = require('eventbrite');
+
+// Create configured Eventbrite SDK
+const sdk = eventbrite({token: 'OATH_TOKEN_HERE'});
 
 // See: https://www.eventbrite.com/developer/v3/endpoints/users/#ebapi-get-users-id
 sdk.request('/users/me').then(res => {
