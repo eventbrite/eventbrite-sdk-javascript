@@ -4516,10 +4516,6 @@ unicode-property-aliases-ecmascript@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-1.0.3.tgz#ac3522583b9e630580f916635333e00c5ead690d"
 
-url-lib@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/url-lib/-/url-lib-2.0.2.tgz#26708f42f4c23ec821e3617044fab22e250e7afc"
-
 user-home@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/user-home/-/user-home-2.0.0.tgz#9c70bfd8169bc1dcbf48604e0f04b8b49cde9e9f"

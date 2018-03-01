@@ -1,5 +1,3 @@
-/// <reference path="../definitions/url-lib.d.ts"/>
-
 import {Sdk, SdkConfig} from './types';
 import request from './request';
 
