@@ -1,6 +1,5 @@
 /// <reference path="../definitions/url-lib.d.ts"/>
 
-import {formatUrl} from 'url-lib';
 import {Sdk, SdkConfig} from './types';
 import request from './request';
 
@@ -10,14 +9,21 @@ const eventbrite = ({
     baseUrl = DEFAULT_API_URL,
     token,
 }: SdkConfig = {}): Sdk => ({
-    request: (endpoint, options?) => {
-        let url = `${baseUrl}${endpoint}`;
+    request: (endpoint, options = {}) => {
+        const url = `${baseUrl}${endpoint}`;
+        let requestOptions = options;
 
         if (token) {
-            url = formatUrl(url, {token});
+            requestOptions = {
+                ...requestOptions,
+                headers: {
+                    ...(requestOptions.headers || {}),
+                    Authorization: `Bearer ${token}`,
+                },
+            };
         }
 
-        return request(url, options);
+        return request(url, requestOptions);
     },
 });
 

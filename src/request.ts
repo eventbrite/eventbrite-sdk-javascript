@@ -92,7 +92,10 @@ export const parseError = (
     } as ParsedResponseError;
 
     if (hasArgumentsError(responseData)) {
-        error.argumentErrors = responseData['error_detail']['ARGUMENTS_ERROR'];
+        error = {
+            ...error,
+            argumentErrors: responseData['error_detail']['ARGUMENTS_ERROR'],
+        };
     }
 
     return error;

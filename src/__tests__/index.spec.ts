@@ -51,32 +51,27 @@ describe('request', () => {
 
         expect(getMockFetch()).toHaveBeenCalledTimes(1);
         expect(getMockFetch()).toHaveBeenCalledWith(
-            `${MOCK_BASE_URL}/users/me/?token=${MOCK_TOKEN}`,
-            expect.objectContaining({})
+            `${MOCK_BASE_URL}/users/me/`,
+            expect.objectContaining({
+                headers: expect.objectContaining({
+                    Authorization: `Bearer ${MOCK_TOKEN}`,
+                }),
+            })
         );
     });
 
-    it('properly appends token to API URL when endpoint already contains query parameters', async () => {
+    it('properly specifies authorization header token when other header options are already specified', async () => {
         const {request} = eventbrite({
             token: MOCK_TOKEN,
         });
-
-        await expect(
-            request('/users/me/orders/?time_filter=past')
-        ).resolves.toEqual(MOCK_USERS_ME_RESPONSE_DATA);
-
-        expect(getMockFetch()).toHaveBeenCalledTimes(1);
-        expect(getMockFetch()).toHaveBeenCalledWith(
-            `https://www.eventbriteapi.com/v3/users/me/orders/?time_filter=past&token=${MOCK_TOKEN}`,
-            expect.objectContaining({})
-        );
-    });
-
-    it('properly passes through request options', async () => {
-        const {request} = eventbrite();
+        const body = JSON.stringify({plan: 'package2'});
         const requestOptions = {
+            body,
             method: 'POST',
-            body: JSON.stringify({plan: 'package2'}),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': 'CSRF_TOKEN',
+            },
         };
 
         await request('/users/:id/assortment/', requestOptions);
@@ -84,7 +79,15 @@ describe('request', () => {
         expect(getMockFetch()).toHaveBeenCalledTimes(1);
         expect(getMockFetch()).toHaveBeenCalledWith(
             'https://www.eventbriteapi.com/v3/users/:id/assortment/',
-            expect.objectContaining(requestOptions)
+            expect.objectContaining({
+                body,
+                method: 'POST',
+                headers: expect.objectContaining({
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': 'CSRF_TOKEN',
+                    Authorization: `Bearer ${MOCK_TOKEN}`,
+                }),
+            })
         );
     });
 });
