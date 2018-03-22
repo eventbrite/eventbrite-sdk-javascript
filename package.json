@@ -8,6 +8,9 @@
     "jsnext:main": "lib/esm/index.js",
     "browser": "dist/brite-rest.js",
     "types": "lib/cjs/index.d.ts",
+    "files": [
+        "lib"
+    ],
     "keywords": [
         "rest",
         "api",
