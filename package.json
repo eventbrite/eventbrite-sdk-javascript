@@ -1,21 +1,14 @@
 {
-    "name": "brite-rest",
+    "name": "eventbrite",
     "version": "0.0.0-semantically-released",
     "description": "The official JavaScript SDK for the Eventbrite v3 API",
     "author": "Eventbrite <npmjs@eventbrite.com>",
     "main": "lib/cjs/index.js",
     "module": "lib/esm/index.js",
     "jsnext:main": "lib/esm/index.js",
-    "browser": "dist/brite-rest.js",
-    "types": "lib/cjs/index.d.ts",
-    "keywords": [
-        "rest",
-        "api",
-        "sdk",
-        "events",
-        "tickets",
-        "eventbrite"
-    ],
+    "browser": "dist/eventbrite.js",
+    "types": "lib/index.d.ts",
+    "keywords": ["rest", "api", "sdk", "events", "tickets", "eventbrite"],
     "repository": {
         "type": "git",
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript.git"
@@ -23,7 +16,8 @@
     "bugs": {
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript/issues"
     },
-    "homepage": "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
+    "homepage":
+        "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
     "license": "MIT",
     "scripts": {
         "check:static": "npm-run-all --parallel lint tsc",
@@ -32,22 +26,22 @@
         "precommit": "lint-staged",
         "test": "jest --config=jest.json",
         "test:watch": "yarn test --watch",
+        "prebuild": "rm -rf lib",
         "build": "npm-run-all --parallel build:declarations build:transpile",
         "build:declarations": "tsc --p ./tsconfig.build.json",
-        "build:transpile": "babel src --ignore **/*.spec.ts --out-dir lib/cjs --extensions \".ts,.tsx\"",
+        "build:transpile":
+            "babel src --extensions \".ts,.js\" --ignore src/**/__tests__ --out-dir lib/cjs",
+        "prebuild:dist": "rm -rf dist",
+        "build:dist": "gulp build:dist build:dist:min",
         "tsc": "tsc",
         "test:ci": "yarn test --ci",
         "validate": "npm-run-all --parallel check:static test:ci"
     },
     "lint-staged": {
-        "*.{ts,js}": [
-            "yarn format",
-            "git add"
-        ]
+        "*.{ts,js}": ["yarn format", "git add"]
     },
     "dependencies": {
-        "isomorphic-fetch": "^2.2.1",
-        "lodash": "^4.17.5"
+        "isomorphic-fetch": "^2.2.1"
     },
     "resolutions": {
         "babel-core": "^7.0.0-bridge.0"
@@ -55,8 +49,10 @@
     "devDependencies": {
         "@babel/cli": "^7.0.0-beta.40",
         "@babel/core": "^7.0.0-beta.40",
+        "@babel/plugin-external-helpers": "^7.0.0-beta.40",
         "@babel/plugin-proposal-class-properties": "^7.0.0-beta.40",
         "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.40",
+        "@babel/plugin-transform-modules-umd": "^7.0.0-beta.40",
         "@babel/preset-env": "^7.0.0-beta.40",
         "@babel/preset-typescript": "^7.0.0-beta.40",
         "@types/isomorphic-fetch": "^0.0.34",
@@ -64,16 +60,32 @@
         "@types/lodash": "^4.14.104",
         "@types/node": "^9.4.6",
         "babel-eslint": "^7.0.0",
+        "del": "^3.0.0",
         "eslint": "^3.0.0",
         "eslint-config-eventbrite": "^4.1.0",
         "eslint-plugin-import": "^2.0.0",
         "eslint-plugin-typescript": "^0.9.0",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^7.0.1",
+        "gulp-debug": "^3.2.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-replace": "^0.6.1",
+        "gulp-sourcemaps": "^2.6.4",
+        "gulp-uglify": "^3.0.0",
         "husky": "^0.14.3",
         "jest": "^22.4.0",
         "lint-staged": "^6.1.0",
         "node": "^8.9.2",
         "npm-run-all": "^4.1.2",
         "prettier-eslint-cli": "^4.7.1",
+        "rollup": "^0.56.3",
+        "rollup-plugin-babel": "^4.0.0-beta.2",
+        "rollup-plugin-commonjs": "^8.3.0",
+        "rollup-plugin-json": "^2.3.0",
+        "rollup-plugin-node-resolve": "^3.0.3",
+        "rollup-plugin-replace": "^2.0.0",
+        "rollup-plugin-typescript": "^0.8.1",
+        "rollup-plugin-uglify": "^3.0.0",
         "typescript": "^2.7.2",
         "typescript-babel-jest": "^1.0.5",
         "typescript-eslint-parser": "^14.0.0"

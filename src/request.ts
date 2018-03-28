@@ -1,4 +1,3 @@
-import {isPlainObject} from 'lodash';
 import {JSONResponseData, ParsedResponseError} from './types';
 import 'isomorphic-fetch';
 
@@ -53,8 +52,11 @@ export const fetchJSON = (
 };
 
 const hasArgumentsError = (responseData: JSONResponseData): boolean =>
-    isPlainObject(responseData['error_detail']) &&
-    isPlainObject(responseData['error_detail']['ARGUMENTS_ERROR']);
+    !!(
+        responseData &&
+        responseData['error_detail'] &&
+        responseData['error_detail']['ARGUMENTS_ERROR']
+    );
 
 /**
  * Parse v3 errors into an array of objects representing the errors returned by
