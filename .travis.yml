@@ -7,5 +7,5 @@ node_js:
 # Cache dependencies in $HOME/.yarn-cache across builds
 cache: yarn
 
-# Run the the validate script with code coverage
+# Run the the validate script
 script: yarn run validate

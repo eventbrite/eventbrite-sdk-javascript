@@ -7,8 +7,6 @@ const replace = require("gulp-replace");
 const debug = require("gulp-debug");
 const util = require("gulp-util");
 
-const del = require("del");
-
 const { rollup } = require("rollup");
 const rollupBabel = require("rollup-plugin-babel");
 const rollupNodeResolve = require("rollup-plugin-node-resolve");
@@ -27,10 +25,10 @@ const SOURCE_ENTRY = "src/index.ts";
 
 const FILES_TO_BUILD = [
   // include all the JavaScript files in src/ directory
-  "src/*.(ts|js)",
+  "src/**/*.@(ts|js)",
 
   // but exclude the test files
-  "!src/**/*.spec.(ts|js)"
+  "!src/**/__tests__/**"
 ];
 
 // When transpiling to ES format, we still use the `env` preset
@@ -43,7 +41,8 @@ const UMD_TRANSFORM_PLUGIN = [
   "@babel/plugin-transform-modules-umd",
   {
     globals: {
-      index: MODULE_NAME
+      index: MODULE_NAME,
+      "isomorphic-fetch": "fetch"
     },
     exactGlobals: true
   }
@@ -73,7 +72,22 @@ const _getBabelStream = format =>
     // do the appropriate babel transpile (this is a copy from package.json)
     .pipe(babel(_getBabelConfig(format)));
 
-const _genRollupDist = (minify = false) =>
+const _genUmd = (minify = false) =>
+  _getBabelStream(FORMAT_UMD)
+    // If you're using UMD, you probably don't have `process.env.NODE_ENV` so, we'll replace it.
+    // If you're using the unminified UMD, you're probably in DEV
+    // If you're using the unminified UMD, you're probably in production
+    .pipe(
+      replace(
+        "process.env.NODE_ENV",
+        JSON.stringify(minify ? "production" : "development")
+      )
+    )
+    .pipe(sourcemaps.write("./"))
+    .pipe(debug({ title: `Building${minify ? " + Minifying" : ""} UMD:` }))
+    .pipe(gulp.dest("lib/umd"));
+
+const _genDist = (minify = false) =>
   rollup({
     input: SOURCE_ENTRY,
 
@@ -143,61 +157,25 @@ const _genRollupDist = (minify = false) =>
     });
   });
 
-gulp.task("build:clean:lib:cjs", () => del(["lib/cjs"]));
-gulp.task("build:clean:lib:esm", () => del(["lib/esm"]));
-gulp.task("build:clean:lib:umd", () => del(["lib/umd"]));
-gulp.task("build:clean:dist", () => del(["dist/umd"]));
-gulp.task("build:clean", [
-  "build:clean:lib:cjs",
-  "build:clean:lib:esm",
-  "build:clean:lib:umd",
-  "build:clean:dist"
-]);
-
-gulp.task("build:lib:cjs", ["build:clean:lib:cjs"], () =>
-  _getBabelStream(FORMAT_CJS)
-    .pipe(debug({ title: "Building CJS" }))
-    .pipe(gulp.dest("lib/cjs"))
-);
-
-gulp.task("build:lib:esm", ["build:clean:lib:esm"], () =>
+// Used by modern dependency systems like Webpack or Rollup that can do tree-shaking
+gulp.task("build:lib:esm", () =>
   _getBabelStream(FORMAT_ESM)
     .pipe(debug({ title: "Building ESM:" }))
     .pipe(gulp.dest("lib/esm"))
 );
 
-gulp.task("build:lib:umd", ["build:clean:lib:umd"], () =>
-  _getBabelStream(FORMAT_UMD)
-    // If you're using UMD, you probably don't have `process.env.NODE_ENV` so, we'll replace
-    // it. If you're using the unimified UMD, you're probably in DEV
-    .pipe(replace("process.env.NODE_ENV", JSON.stringify("development")))
-    .pipe(sourcemaps.write("./"))
-    .pipe(debug({ title: "Building UMD:" }))
-    .pipe(gulp.dest("lib/umd"))
+// Used primarily by Node for resolving dependencies
+gulp.task("build:lib:cjs", () =>
+  _getBabelStream(FORMAT_CJS)
+    .pipe(debug({ title: "Building CJS" }))
+    .pipe(gulp.dest("lib/cjs"))
 );
 
-gulp.task("build:lib:umd:min", ["build:clean:lib:umd"], () =>
-  _getBabelStream(FORMAT_UMD)
-    // If you're using UMD, you probably don't have `process.env.NODE_ENV` so, we'll replace
-    // it. If you're using the imified UMD, you're probably in production
-    .pipe(replace("process.env.NODE_ENV", JSON.stringify("production")))
-    // minify the files and rename to .min.js extension
-    .pipe(uglify())
-    .pipe(rename({ extname: ".min.js" }))
-    .pipe(sourcemaps.write("./"))
-    .pipe(debug({ title: "Building + Minifying UMD:" }))
-    .pipe(gulp.dest("lib/umd"))
-);
+// Used by legacy dependency systems like requireJS
+gulp.task("build:dist", () => _genDist());
+gulp.task("build:dist:min", () => _genDist(true));
 
-gulp.task("build:dist", () => _genRollupDist());
-
-gulp.task("build:dist:min", () => _genRollupDist(true));
-
-gulp.task("build", [
-  //   'build:lib:umd',
-  //   'build:lib:umd:min',
-  "build:dist",
-  "build:dist:min"
-]);
-
-gulp.task("default", ["build"]);
+// Unclear what would use this over the previous 3, but keeping for now
+// May get removed in later releases
+gulp.task("build:lib:umd", () => _genUmd());
+gulp.task("build:lib:umd:min", () => _genUmd(true));

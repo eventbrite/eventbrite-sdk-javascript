@@ -18,3 +18,4 @@ logs
 
 # Test files
 **/*.spec.*
+**/__tests__/*
