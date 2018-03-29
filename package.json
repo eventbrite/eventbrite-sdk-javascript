@@ -40,7 +40,7 @@
         "test": "jest --config=jest.json",
         "test:ci": "yarn test --ci",
         "test:watch": "yarn test --watch",
-        "validate": "npm-run-all --parallel check:static test:ci test:size"
+        "validate": "npm-run-all --parallel check:static check:size test:ci"
     },
     "lint-staged": {
         "*.{ts,js}": [
