@@ -53,7 +53,6 @@ export const fetchJSON = (
 
 const hasArgumentsError = (responseData: JSONResponseData): boolean =>
     !!(
-        responseData &&
         responseData['error_detail'] &&
         responseData['error_detail']['ARGUMENTS_ERROR']
     );

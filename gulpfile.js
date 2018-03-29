@@ -72,7 +72,7 @@ const _getBabelStream = format =>
     // do the appropriate babel transpile (this is a copy from package.json)
     .pipe(babel(_getBabelConfig(format)));
 
-const _genUmd = (minify = false) =>
+const _genUmd = ({ minify = false } = {}) =>
   _getBabelStream(FORMAT_UMD)
     // If you're using UMD, you probably don't have `process.env.NODE_ENV` so, we'll replace it.
     // If you're using the unminified UMD, you're probably in DEV
@@ -83,11 +83,18 @@ const _genUmd = (minify = false) =>
         JSON.stringify(minify ? "production" : "development")
       )
     )
+    // minify the files and rename to .min.js extension (when minifying)
+    .pipe(minify ? uglify() : util.noop())
+    .pipe(minify ? rename({ extname: ".min.js" }) : util.noop())
     .pipe(sourcemaps.write("./"))
-    .pipe(debug({ title: `Building${minify ? " + Minifying" : ""} UMD:` }))
+    .pipe(
+      debug({
+        title: minify ? "Building + Minifying UMD:" : "Building UMD:"
+      })
+    )
     .pipe(gulp.dest("lib/umd"));
 
-const _genDist = (minify = false) =>
+const _genDist = ({ minify = false } = {}) =>
   rollup({
     input: SOURCE_ENTRY,
 
@@ -173,9 +180,20 @@ gulp.task("build:lib:cjs", () =>
 
 // Used by legacy dependency systems like requireJS
 gulp.task("build:dist", () => _genDist());
-gulp.task("build:dist:min", () => _genDist(true));
+gulp.task("build:dist:min", () => _genDist({ minify: true }));
 
 // Unclear what would use this over the previous 3, but keeping for now
 // May get removed in later releases
 gulp.task("build:lib:umd", () => _genUmd());
-gulp.task("build:lib:umd:min", () => _genUmd(true));
+gulp.task("build:lib:umd:min", () => _genUmd({ minify: true }));
+
+gulp.task("build:lib", [
+  "build:lib:esm",
+  "build:lib:cjs",
+  "build:lib:umd",
+  "build:lib:umd:min"
+]);
+
+gulp.task("build", ["build:lib", "build:dist", "build:dist:min"]);
+
+gulp.task("default", ["build"]);

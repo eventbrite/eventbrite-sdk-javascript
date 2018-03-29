@@ -8,14 +8,7 @@
     "jsnext:main": "lib/esm/index.js",
     "browser": "dist/eventbrite.js",
     "types": "lib/index.d.ts",
-    "keywords": [
-        "rest",
-        "api",
-        "sdk",
-        "events",
-        "tickets",
-        "eventbrite"
-    ],
+    "keywords": ["rest", "api", "sdk", "events", "tickets", "eventbrite"],
     "repository": {
         "type": "git",
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript.git"
@@ -23,35 +16,26 @@
     "bugs": {
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript/issues"
     },
-    "homepage": "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
+    "homepage":
+        "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
     "license": "MIT",
     "scripts": {
         "check:static": "npm-run-all --parallel lint tsc",
         "format": "prettier-eslint --write",
         "lint": "eslint --cache --max-warnings 0 --ext .ts,.js src",
         "precommit": "lint-staged",
-        "test:watch": "yarn test --watch",
-        "build": "npm-run-all --parallel build:**",
-        "build:declarations": "tsc --p ./tsconfig.build.json",
-        "build:dist": "gulp build:dist build:dist:min",
-        "build:lib:cjs": "gulp build:lib:cjs",
-        "build:lib:esm": "gulp build:lib:esm",
-        "build:lib:umd": "gulp build:lib:umd build:lib:umd:min",
-        "prebuild:declarations": "rm -f lib/*.d.ts",
-        "prebuild:dist": "rm -rf dist",
-        "prebuild:lib:cjs": "rm -rf lib/cjs",
-        "prebuild:lib:esm": "rm -rf lib/esm",
-        "prebuild:lib:umd": "rm -rf lib/umd",
+        "gen:declarations": "tsc --p ./tsconfig.build.json",
+        "build": "npm-run-all build:targets gen:declarations",
+        "build:targets": "gulp build",
+        "prebuild:targets": "rm -rf dist && rm -rf lib",
         "tsc": "tsc",
         "test": "jest --config=jest.json",
         "test:ci": "yarn test --ci",
+        "test:watch": "yarn test --watch",
         "validate": "npm-run-all --parallel check:static test:ci"
     },
     "lint-staged": {
-        "*.{ts,js}": [
-            "yarn format",
-            "git add"
-        ]
+        "*.{ts,js}": ["yarn format", "git add"]
     },
     "dependencies": {
         "isomorphic-fetch": "^2.2.1"
