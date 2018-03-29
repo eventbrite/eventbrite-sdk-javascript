@@ -148,9 +148,9 @@ const _genDist = ({ minify = false } = {}) =>
         )
       ),
 
-      // Minify the code if that option is specified. `null` will get filtered out
-      // below
-      minify ? rollupUglify() : null
+      // Minify the code if that option is specified
+      // `false` will get filtered out below
+      minify && rollupUglify()
     ].filter(Boolean)
   }).then(bundle => {
     bundle.write({
