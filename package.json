@@ -32,15 +32,16 @@
         "precommit": "lint-staged",
         "gen:declarations": "tsc --p ./tsconfig.build.json",
         "build": "npm-run-all build:targets gen:declarations",
+        "build:dist": "gulp build:dist:min",
         "build:targets": "gulp build",
         "prebuild:targets": "rm -rf dist && rm -rf lib",
         "tsc": "tsc",
-        "test": "npm-run-all --parallel test:unit test:size",
-        "test:unit": "jest --config=jest.json",
-        "test:ci": "npm-run-all --parallel 'test:unit --ci' test:size",
+        "test": "jest --config=jest.json",
+        "pretest:size": "yarn build:dist",
         "test:size": "bundlesize",
+        "test:ci": "yarn test --ci",
         "test:watch": "yarn test --watch",
-        "validate": "npm-run-all --parallel check:static test:ci"
+        "validate": "npm-run-all --parallel check:static test:ci test:size"
     },
     "lint-staged": {
         "*.{ts,js}": [
