@@ -8,7 +8,14 @@
     "jsnext:main": "lib/esm/index.js",
     "browser": "dist/eventbrite.js",
     "types": "lib/index.d.ts",
-    "keywords": ["rest", "api", "sdk", "events", "tickets", "eventbrite"],
+    "keywords": [
+        "rest",
+        "api",
+        "sdk",
+        "events",
+        "tickets",
+        "eventbrite"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript.git"
@@ -16,8 +23,7 @@
     "bugs": {
         "url": "https://github.com/eventbrite/eventbrite-sdk-javascript/issues"
     },
-    "homepage":
-        "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
+    "homepage": "https://github.com/eventbrite/eventbrite-sdk-javascript#readme",
     "license": "MIT",
     "scripts": {
         "check:static": "npm-run-all --parallel lint tsc",
@@ -35,7 +41,10 @@
         "validate": "npm-run-all --parallel check:static test:ci"
     },
     "lint-staged": {
-        "*.{ts,js}": ["yarn format", "git add"]
+        "*.{ts,js}": [
+            "yarn format",
+            "git add"
+        ]
     },
     "dependencies": {
         "isomorphic-fetch": "^2.2.1"
@@ -54,7 +63,6 @@
         "@babel/preset-typescript": "^7.0.0-beta.40",
         "@types/isomorphic-fetch": "^0.0.34",
         "@types/jest": "^22.1.3",
-        "@types/lodash": "^4.14.104",
         "@types/node": "^9.4.6",
         "babel-eslint": "^7.0.0",
         "eslint": "^3.0.0",
