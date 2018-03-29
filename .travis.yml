@@ -8,4 +8,6 @@ node_js:
 cache: yarn
 
 # Run the the validate script
-script: yarn run validate
+# Temporarily also run the build script to make sure it works
+# (will move this to the release step once that's implemented)
+script: yarn run validate && yarn run build
