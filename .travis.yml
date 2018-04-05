@@ -7,19 +7,13 @@ node_js:
 # Cache dependencies in $HOME/.yarn-cache across builds
 cache: yarn
 
-before_install:
-  - openssl aes-256-cbc -K "${encrypted_ba12a3340263_key}" -iv "${encrypted_ba12a3340263_iv}" -in git_deploy_key.enc -out /tmp/git_deploy_key -d 
-  # Make sure only the current user can read the private key
-  - chmod 600 /tmp/git_deploy_key
-  # Create a script to return the passphrase environment variable to ssh-add
-  - echo 'echo ${SSH_PASSPHRASE}' > /tmp/askpass && chmod +x /tmp/askpass
-  # Start the authentication agent
-  - eval "$(ssh-agent -s)"
-  # Add the key to the authentication agent
-  - DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" setsid ssh-add /tmp/git_deploy_key </dev/null
-
-
 # Run the the validate script
 # Temporarily also run the build script to make sure it works
 # (will move this to the release step once that's implemented)
 script: yarn run validate && yarn run build
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - bash _scripts/deploy_key_decrypt.sh
