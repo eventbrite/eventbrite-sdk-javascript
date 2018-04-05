@@ -17,4 +17,4 @@ DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" /usr/bin/setsid ssh-add /tmp/git_deplo
 
 ##
 
-pkill ssh-agent 
+/usr/bin/pkill ssh-agent 
