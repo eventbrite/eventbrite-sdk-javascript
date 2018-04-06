@@ -12,4 +12,5 @@
 eval "$(ssh-agent -s)"
 # Add the key to the authentication agent
 DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" /usr/bin/setsid ssh-add /tmp/git_deploy_key </dev/null
-
+# semantic-relase #placeholder 
+/usr/bin/pkill ssh-agent
