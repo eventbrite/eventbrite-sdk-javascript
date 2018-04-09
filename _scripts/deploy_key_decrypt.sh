@@ -9,8 +9,12 @@
 # Create a script to return the passphrase environment variable to ssh-add
 /bin/echo 'echo ${SSH_PASSPHRASE}' > /tmp/askpass && chmod +x /tmp/askpass
 # Start the authentication agent
-eval "$(ssh-agent -s)"
+eval "$(/usr/bin/ssh-agent -s)"
 # Add the key to the authentication agent
 DISPLAY=":0.0" SSH_ASKPASS="/tmp/askpass" /usr/bin/setsid ssh-add /tmp/git_deploy_key </dev/null
 # semantic-relase #placeholder 
-/usr/bin/pkill ssh-agent
+
+echo -e "Script, and processes spawned:\n$(ps -ef|grep $$)\n\n"
+/usr/bin/pkill ssh-agent && echo "Successfully killed ssh-agent"
+echo -e "All processes running: $(ps -ef)"
+exit 0
