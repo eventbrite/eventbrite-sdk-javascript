@@ -2,10 +2,14 @@
 
 ## Description
 <!--- Describe your changes in detail -->
-<!--- Don't forget to note any issues here with fixes #<issue number> -->
+<!--- Please include the phrase "BREAKING CHANGE:" here if your require a major release -->
+
+<!--- Don't forget to note any issues here with "fixes #<issue number>" -->
 
 ## How Has This Been Tested?
 <!--- Please describe in detail how you tested your changes. -->
+<!--- For bug fixes, include regression unit tests that fail without the fix -->
+<!--- For new features, include unit tests for the new functionality -->
 
 ## Screenshots (if appropriate):
 

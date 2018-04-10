@@ -24,7 +24,7 @@ Read more on [getting a token](https://www.eventbrite.com/developer/v3/api_overv
 
 ## Contributing
 
-Check out our contributing document [here](https://github.com/eventbrite/eventbrite-sdk-javascript/blob/master/CONTRIBUTING.md)
+Contributions are welcome! See [Contributing Guidelines](CONTRIBUTING.md) for more details.
 
 ## Project philosophy
 
