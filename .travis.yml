@@ -4,7 +4,7 @@ node_js:
   - "8"
   - "6"
 
-# Cache dependencies in $HOME/.yarn-cache across builde
+# Cache dependencies in $HOME/.yarn-cache across builds
 cache: yarn
 # Run the the validate script
 # Temporarily also run the build script to make sure it works
