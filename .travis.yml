@@ -4,9 +4,8 @@ node_js:
   - "8"
   - "6"
 
-# Cache dependencies in $HOME/.yarn-cache across builds
+# Cache dependencies in $HOME/.yarn-cache across builde
 cache: yarn
-
 # Run the the validate script
 # Temporarily also run the build script to make sure it works
 # (will move this to the release step once that's implemented)
@@ -16,3 +15,4 @@ deploy:
   provider: script
   skip_cleanup: true
   script: bash _scripts/deploy_key_decrypt.sh
+  
