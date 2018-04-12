@@ -18,4 +18,4 @@ ssh-add -l
 npx semantic-release
 ##
 /usr/bin/pkill ssh-agent && echo "successfully killed ssh agent"
-
+/bin/rm /tmp/git_deploy_key 
