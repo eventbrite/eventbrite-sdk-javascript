@@ -16,7 +16,7 @@
 ## Checklist:
 <!--- Please mark an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-- [ ] I have read the **CONTRIBUTING** document.
+- [ ] I have read the [**CONTRIBUTING** document](../CONTRIBUTING.md).
 - [ ] I have updated the documentation accordingly.
 - [ ] I have added tests to cover my changes.
 - [ ] I have run yarn validate to ensure that tests, typescript and linting are all in order.
