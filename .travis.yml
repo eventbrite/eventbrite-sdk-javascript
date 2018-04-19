@@ -11,8 +11,3 @@ cache: yarn
 # (will move this to the release step once that's implemented)
 script: yarn run validate && yarn run build
 
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: npx semantic-release 
-  
