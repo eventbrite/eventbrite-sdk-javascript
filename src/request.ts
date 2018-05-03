@@ -142,7 +142,8 @@ const _catchStatusError = (res: Response): Promise<any> =>
     });
 
 /**
- * Fetch wrapper that parses v3 errors received by the API
+ * Low-level method that makes fetch requests, returning the response formatted as JSON.
+ * It parses errors from API v3 and throws exceptions with those errors
  */
 export default (url: string, options?: RequestInit): Promise<{}> =>
     _fetchJSON(url, options).catch(_catchStatusError);

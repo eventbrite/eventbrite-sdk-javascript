@@ -1,13 +1,20 @@
 language: node_js
 node_js:
   - "node"
+  - "10"
   - "8"
   - "6"
 
-# Cache dependencies in $HOME/.yarn-cache across builds
-cache: yarn
 # Run the the validate script
-# Temporarily also run the build script to make sure it works
-# (will move this to the release step once that's implemented)
-script: yarn run validate --ci && yarn run build
+script: yarn run validate
 
+# Using semantic-release, deploy a new version of the library
+# We're running multiple node jobs so travis-deploy-once ensures
+# that it only tries to deploy once. We of course run a build first
+# to release the build targets
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - yarn run build
+    - npx travis-deploy-once "npx semantic-release"
