@@ -14,7 +14,7 @@
 
 [![Watch on GitHub](https://img.shields.io/github/watchers/eventbrite/eventbrite-sdk-javascript.svg?style=social)](https://github.com/eventbrite/eventbrite-sdk-javascript/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/eventbrite/eventbrite-sdk-javascript.svg?style=social)](https://github.com/eventbrite/eventbrite-sdk-javascript/stargazers)
-[![Tweet](https://img.shields.io/twitter/url/https/github.com/eventbrite/eventbrite-sdk-javascript.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20eventbrite%20by%20%40evbeng!%0A%0Ahttps%3A%2F%2Fgithub.com%2Feventbrite%2Feventbrite-sdk-javascript)
+[![Tweet](https://img.shields.io/twitter/url/https/github.com/eventbrite/eventbrite-sdk-javascript.svg?style=social)](https://twitter.com/intent/tweet?text=Check%20out%20the%20official%20Eventbrite%20API%20JavaScript%20DSK%20by%20%40evbeng!%20%0A%20https%3A%2F%2Fgithub.com%2Feventbrite%2Feventbrite-sdk-javascript%2F)
 
 The official JavaScript SDK for the [Eventbrite v3 API](https://www.eventbrite.com/developer/v3/).
 
