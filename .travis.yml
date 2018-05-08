@@ -9,5 +9,5 @@ cache: yarn
 # Run the the validate script
 # Temporarily also run the build script to make sure it works
 # (will move this to the release step once that's implemented)
-script: yarn run validate --ci && yarn run build --ci
+script: yarn run validate --ci && yarn run build
 
