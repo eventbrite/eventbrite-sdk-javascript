@@ -36,6 +36,7 @@
         "postbuild": "bundlesize",
         "start": "jest --watch",
         "test": "jest --config=jest-test.config.js",
+        "type-check": "jest --config=jest-tsc.config.js",
         "validate": "jest"
     },
     "lint-staged": {
