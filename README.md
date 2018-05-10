@@ -3,8 +3,9 @@
 [![version](https://img.shields.io/npm/v/eventbrite.svg)](http://npm.im/eventbrite)
 [![downloads](https://img.shields.io/npm/dt/eventbrite.svg)](http://npm-stat.com/charts.html?package=eventbrite&from=2018-05-01)
 [![module formats: esm, cjs, & umd](https://img.shields.io/badge/module%20formats-esm%2C%20cjs%2C%20umd-green.svg)](https://unkpg.com/eventbrite/)
+![npm type definitions](https://img.shields.io/npm/types/eventbrite.svg)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![license](https://img.shields.io/github/license/eventbrite/eventbrite-sdk-javascript.svg)](LICENSE)
 
@@ -12,6 +13,8 @@
 [![Build Status](https://travis-ci.org/eventbrite/eventbrite-sdk-javascript.svg?branch=master)](https://travis-ci.org/eventbrite/eventbrite-sdk-javascript)
 [![Dependencies status](https://img.shields.io/david/eventbrite/eventbrite-sdk-javascript.svg)](https://david-dm.org/eventbrite/eventbrite-sdk-javascript)
 [![Dev Dependencies status](https://img.shields.io/david/dev/eventbrite/eventbrite-sdk-javascript.svg)](https://david-dm.org/eventbrite/eventbrite-sdk-javascript?type=dev)
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 [![Watch on GitHub](https://img.shields.io/github/watchers/eventbrite/eventbrite-sdk-javascript.svg?style=social)](https://github.com/eventbrite/eventbrite-sdk-javascript/watchers)
 [![Star on GitHub](https://img.shields.io/github/stars/eventbrite/eventbrite-sdk-javascript.svg?style=social)](https://github.com/eventbrite/eventbrite-sdk-javascript/stargazers)
