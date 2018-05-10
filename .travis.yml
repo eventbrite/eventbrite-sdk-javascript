@@ -8,13 +8,13 @@ node_js:
 # Run the the validate script
 script: yarn run validate
 
+# We of course run a build first to generate the build targets
+before_deploy: yarn run build
+
 # Using semantic-release, deploy a new version of the library
 # We're running multiple node jobs so travis-deploy-once ensures
-# that it only tries to deploy once. We of course run a build first
-# to release the build targets
+# that it only tries to deploy once.
 deploy:
   provider: script
   skip_cleanup: true
-  script:
-    - yarn run build
-    - npx travis-deploy-once "npx semantic-release"
+  script: npx travis-deploy-once "npx semantic-release"
