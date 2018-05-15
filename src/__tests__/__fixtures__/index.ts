@@ -14,8 +14,15 @@ export const MOCK_USERS_ME_RESPONSE_DATA = {
     image_id: null as string,
 };
 
-export const MOCK_ERROR_RESPONSE_DATA = {
+export const MOCK_INTERNAL_ERROR_RESPONSE_DATA = {
+    status_code: 500,
+    error: 'INTERNAL_ERROR',
+    error_description: 'An unhandled error occured in Eventbrite.',
+};
+
+export const MOCK_ARGUMENTS_ERROR_RESPOSNE_DATA = {
     status_code: 400,
-    error: 'INVALID_TEST',
-    error_description: 'This is an invalid test',
+    error_detail: {ARGUMENTS_ERROR: {status: ['INVALID']}},
+    error_description: 'There are errors with your arguments: status - INVALID',
+    error: 'ARGUMENTS_ERROR',
 };

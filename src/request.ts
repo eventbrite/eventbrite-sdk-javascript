@@ -5,11 +5,29 @@ import 'isomorphic-fetch';
  * Return a promise that is resolved or rejected depending on the response's
  * status code.
  */
-export const checkStatus = (res: Response): Promise<Response> => {
+const _checkStatus = (res: Response): Promise<Response> => {
     if (res.status >= 300) {
+        // Need to wrap the response in an object so that it matches the same error object
+        // returned by _catchStatusError
         return Promise.reject(res);
     }
     return Promise.resolve(res);
+};
+
+const _tryParseJSON = (res: Response): Promise<any> => {
+    try {
+        return (
+            res
+                .json()
+
+                // if JSON cannot parse, it'll return a rejected promise instead
+                // of throwing an error, so we catch that rejection so that we can rejected
+                // with the response like everything else expects
+                .catch(() => Promise.reject(res))
+        );
+    } catch (error) {
+        return Promise.reject(res);
+    }
 };
 
 /**
@@ -17,7 +35,7 @@ export const checkStatus = (res: Response): Promise<Response> => {
  * with our JSON API. Parses the JSON, provides appropriate headers, and asserts
  * a valid status from the server.
  */
-export const fetchJSON = (
+export const _fetchJSON = (
     url: string,
     {headers, method, mode, ...options}: RequestInit = {}
 ): Promise<{}> => {
@@ -39,19 +57,11 @@ export const fetchJSON = (
     } as RequestInit;
 
     return fetch(url, fetchOptions)
-        .then(checkStatus)
-        .then((res: Response) => {
-            let resJSON = {};
-
-            if ('json' in res) {
-                resJSON = res.json();
-            }
-
-            return resJSON;
-        });
+        .then(_checkStatus)
+        .then(_tryParseJSON);
 };
 
-const hasArgumentsError = (responseData: JSONResponseData): boolean =>
+const _hasArgumentsError = (responseData: JSONResponseData): boolean =>
     !!(
         responseData['error_detail'] &&
         responseData['error_detail']['ARGUMENTS_ERROR']
@@ -79,9 +89,7 @@ const hasArgumentsError = (responseData: JSONResponseData): boolean =>
  *  }
  *
  */
-export const parseError = (
-    responseData: JSONResponseData
-): ParsedResponseError => {
+const _parseError = (responseData: JSONResponseData): ParsedResponseError => {
     if (!responseData.error) {
         // Weird error format, return null
         return null;
@@ -92,7 +100,7 @@ export const parseError = (
         description: responseData['error_description'],
     } as ParsedResponseError;
 
-    if (hasArgumentsError(responseData)) {
+    if (_hasArgumentsError(responseData)) {
         error = {
             ...error,
             argumentErrors: responseData['error_detail']['ARGUMENTS_ERROR'],
@@ -103,29 +111,38 @@ export const parseError = (
 };
 
 /**
- * Designed to work with `checkStatus`, or any function that
+ * Designed to work with `_checkStatus`, or any function that
  * raises an error on an invalid status. The error raised should have a `response`
  * property with the original response object.
  *
  * Example usage:
  *
- * fetchJSON('/api/v3/test/path', {'body': someData})
- *     .catch(catchStatusError)
- *     .catch(({response, parsedError}) => doSomethingOnError())
- *     .then(doSomethingOnSuccess);
+ * _fetchJSON('/api/v3/test/path', {'body': someData})
+ *     .catch(_catchStatusError)
+ *     .then(doSomethingOnSuccess)
+ *     .catch(({response, parsedError}) => doSomethingOnError());
  */
-export const catchStatusError = (response: Response): Promise<any> =>
+const _catchStatusError = (res: Response): Promise<any> =>
     new Promise((resolve, reject) => {
-        response
-            .json()
-            .then((responseData) => parseError(responseData))
-            .then((parsedError) => reject({response, parsedError}))
-            .catch(() => reject({response}));
+        _tryParseJSON(res)
+            // handled error, so reject with parsed error data along with response
+            .then((responseData: JSONResponseData) =>
+                reject({
+                    response: res,
+                    parsedError: _parseError(responseData),
+                })
+            )
+
+            // Unhandled error
+            .catch(() =>
+                reject({
+                    response: res,
+                })
+            );
     });
 
 /**
- * fetchV3 is a simple wrapper for http/fetchJSON that parses v3 errors received
- * by the API.
+ * Fetch wrapper that parses v3 errors received by the API
  */
 export default (url: string, options?: RequestInit): Promise<{}> =>
-    fetchJSON(url, options).catch(catchStatusError);
+    _fetchJSON(url, options).catch(_catchStatusError);
