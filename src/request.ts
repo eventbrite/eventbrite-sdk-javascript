@@ -6,7 +6,7 @@ import 'isomorphic-fetch';
  * status code.
  */
 const _checkStatus = (res: Response): Promise<Response> => {
-    if (res.status >= 300) {
+    if (res.status >= 400) {
         // Need to wrap the response in an object so that it matches the same error object
         // returned by _catchStatusError
         return Promise.reject(res);
