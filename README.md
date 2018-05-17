@@ -28,7 +28,7 @@ The official JavaScript SDK for the [Eventbrite v3 API](https://www.eventbrite.c
 
 *   [Installation](#installation)
 *   [Quick Usage](#quick-usage)
-*   [API Docs](#api-docs)
+*   [API Docs](docs/)
 *   [Target Environments](#target-environments)
 *   [Contributing](CONTRIBUTING.md)
 *   [Project philosophy](#project-philosophy)
@@ -66,9 +66,11 @@ Read more on [getting a token](https://www.eventbrite.com/developer/v3/api_overv
 
 ## API Docs
 
-Coming soon...
+[Eventbrite v3 API JavaScript SDK Documentation](docs/)
 
 ## Target Environments
+
+The SDK works in both the browser and Node environments. As a result, we provide multiple build targets for you to consume depending on your environment:
 
 ### Libraries
 
