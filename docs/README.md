@@ -34,7 +34,7 @@ NOTE: `window.Eventbrite` will be a reference to the package.
 
 ## Configuring a SDK object
 
-In order to make requests, we need to configure the SDK object.
+In order to make requests, you need to configure the SDK object.
 
 ```js
 import eventbrite from 'eventbrite';
