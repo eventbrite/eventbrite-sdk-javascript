@@ -16,5 +16,4 @@ before_deploy: yarn run build
 # that it only tries to deploy once.
 deploy:
   provider: script
-  skip_cleanup: true
   script: npx travis-deploy-once "npx semantic-release"
