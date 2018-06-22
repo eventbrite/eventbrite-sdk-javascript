@@ -12,8 +12,10 @@ script: yarn run validate
 before_deploy: yarn run build
 
 # Using semantic-release, deploy a new version of the library
-# We're running multiple node jobs so travis-deploy-once ensures
-# that it only tries to deploy once.
+# We're running multiple node jobs so running on latest Node
+# version
 deploy:
   provider: script
-  script: npx travis-deploy-once "npx semantic-release"
+  script: npx semantic-release
+  on:
+    node: "node"
