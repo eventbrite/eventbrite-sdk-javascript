@@ -6,15 +6,15 @@ node_js:
   - "6"
 
 # Run the the validate script
-script: yarn run validate
-
-# We of course run a build first to generate the build targets
-before_deploy: yarn run build
+script:
+  - yarn run validate
+  - yarn run build
 
 # Using semantic-release, deploy a new version of the library
 # We're running multiple node jobs so running on latest Node
 # version
 deploy:
+  skip_cleanup: true
   provider: script
   script: npx semantic-release
   on:
