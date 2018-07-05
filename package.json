@@ -8,6 +8,10 @@
     "jsnext:main": "lib/esm/index.js",
     "browser": "dist/eventbrite.js",
     "types": "lib/index.d.ts",
+    "files": [
+        "lib",
+        "dist"
+    ],
     "keywords": [
         "rest",
         "api",
