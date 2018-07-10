@@ -58,7 +58,6 @@ const _getBabelConfig = (format) => ({
     plugins: [
         '@babel/proposal-class-properties',
         '@babel/proposal-object-rest-spread',
-        '@babel/plugin-external-helpers',
         ...(format === FORMAT_UMD ? [UMD_TRANSFORM_PLUGIN] : []),
     ],
 });
