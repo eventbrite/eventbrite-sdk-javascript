@@ -19,4 +19,4 @@ deploy:
   provider: script
   script: npx semantic-release
   on:
-    node: "node"
+    node: "10"
