@@ -4,9 +4,9 @@ This SDK interface closely mirors the [Eventbrite v3 REST API](https://www.event
 
 ## ToC
 
-*   [Including the package](#including-the-package)
-*   [Configuring a SDK object](#configuring-a-sdk-object)
-*   [`request()`](./request.md)
+-   [Including the package](#including-the-package)
+-   [Configuring a SDK object](#configuring-a-sdk-object)
+-   [`request()`](./request.md)
 
 ## Including the package
 
@@ -45,7 +45,18 @@ const sdk = eventbrite({token: 'OATH_TOKEN_HERE'});
 
 You can configure the SDK object with the following properties:
 
-*   `token` - The Eventbrite [OAuth token](https://www.eventbrite.com/developer/v3/api_overview/authentication/#ebapi-getting-a-token)
-*   `baseUrl` - The base URL prepending to endpoints when making API requests (defaults to `'https://www.eventbriteapi.com/v3'`). So when using the `'/users/me/'` endpoint, a request would be made to `https://www.eventbriteapi.com/v3/users/me/`. _NOTE: You probably will not need to use this property._
+-   `token` - The Eventbrite [OAuth token](https://www.eventbrite.com/developer/v3/api_overview/authentication/#ebapi-getting-a-token)
+-   `baseUrl` - The base URL The base URL prepended to endpoints when making API requests (defaults to `'https://www.eventbriteapi.com/v3'`). When using the `'/users/me/'` endpoint, a request would be made to `https://www.eventbriteapi.com/v3/users/me/`. When using [webooks](https://www.eventbrite.com/developer/v3/api_overview/webhooks/), you will receive full API urls, so set the `baseUrl` to empty string (`''`).
+
+```js
+import eventbrite from 'eventbrite';
+
+// Create configured Eventbrite SDK
+// When all request endpoints will be full URLs
+const sdk = eventbrite({
+    token: 'OATH_TOKEN_HERE',
+    baseUrl: '',
+});
+```
 
 From then on, you can use `sdk` to make API requests.
