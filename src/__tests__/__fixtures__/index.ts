@@ -42,3 +42,20 @@ export const MOCK_ARGUMENTS_ERROR_RESPOSNE_DATA = {
     error_description: 'There are errors with your arguments: status - INVALID',
     error: 'ARGUMENTS_ERROR',
 };
+
+export const MOCK_ORGS_BY_USER_SUCCESS_RESPONSE = {
+    organizations: [
+        {
+            id: '1',
+            name: 'Organization 1',
+        },
+        {
+            id: '2',
+            name: 'Organization 2',
+        },
+        {
+            id: '3',
+            name: 'Organization 3',
+        },
+    ],
+};
