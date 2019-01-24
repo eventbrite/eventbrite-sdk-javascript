@@ -31,3 +31,17 @@ export interface JSONResponseData {
         [propName: string]: any;
     };
 }
+
+export interface Pagination {
+    objectCount: number;
+    pageNumber: number;
+    pageSize: number;
+    pageCount: number;
+    continuation: string;
+    hasMoreItems: boolean;
+}
+
+export interface PaginatedResponse<T> {
+    pagination: Pagination;
+    [key: string]: T[] | Pagination;
+}

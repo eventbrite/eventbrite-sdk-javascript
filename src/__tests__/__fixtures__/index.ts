@@ -44,6 +44,14 @@ export const MOCK_ARGUMENTS_ERROR_RESPOSNE_DATA = {
 };
 
 export const MOCK_ORGS_BY_USER_SUCCESS_RESPONSE = {
+    pagination: {
+        object_count: 3,
+        page_number: 1,
+        page_size: 10,
+        page_count: 1,
+        continuation: 'some_fake_continuation_key',
+        has_more_items: false,
+    },
     organizations: [
         {
             id: '1',
