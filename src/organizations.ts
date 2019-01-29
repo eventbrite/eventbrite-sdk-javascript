@@ -13,6 +13,10 @@ export interface Organization {
  * API for working with Organizations
  */
 export class OrganizationsApi extends BaseApi<PaginatedResponse<Organization>> {
+    /**
+     * Get organizations based off a user id.
+     * @param {string} userId
+     */
     getByUser(userId: string) {
         return this.request(`/users/${userId}/organizations/`);
     }
