@@ -21,7 +21,8 @@
         "typescript/no-array-constructor": "error",
         "typescript/no-empty-interface": "error",
         "typescript/no-use-before-define": "error",
-        "typescript/type-annotation-spacing": "error"
+        "typescript/type-annotation-spacing": "error",
+        "jest/lowercase-name": "none"
     },
     "settings": {
         "import/resolver": {

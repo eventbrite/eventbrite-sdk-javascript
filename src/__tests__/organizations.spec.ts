@@ -10,19 +10,7 @@ import {
 } from './__fixtures__';
 
 import request from '../request';
-import {OrganizationsApiorganizationsApiimport {
-    mockFetch,
-    getMockFetch,
-    getMockResponse,
-    restoreMockFetch,
-} from './utils';
-import {
-    MOCK_ORGS_BY_USER_SUCCESS_RESPONSE,
-    MOCK_TRANSFORMED_ORGS_BY_USER,
-} from './__fixtures__';
-
-import request from '../request';
-import { OrganizationsApi } from '../organizations';
+import {OrganizationsApi} from '../organizations';
 
 describe('OrganizationsApi', () => {
     describe('getByUser()', () => {
