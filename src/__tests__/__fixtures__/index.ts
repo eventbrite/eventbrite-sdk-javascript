@@ -67,3 +67,28 @@ export const MOCK_ORGS_BY_USER_SUCCESS_RESPONSE = {
         },
     ],
 };
+
+export const MOCK_TRANSFORMED_ORGS_BY_USER = {
+    pagination: {
+        objectCount: 3,
+        pageNumber: 1,
+        pageSize: 10,
+        pageCount: 1,
+        continuation: 'some_fake_continuation_key',
+        hasMoreItems: false,
+    },
+    organizations: [
+        {
+            id: '1',
+            name: 'Organization 1',
+        },
+        {
+            id: '2',
+            name: 'Organization 2',
+        },
+        {
+            id: '3',
+            name: 'Organization 3',
+        },
+    ],
+};
