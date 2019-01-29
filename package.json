@@ -34,6 +34,7 @@
         "lint": "jest --config=jest-lint.config.js",
         "precommit": "lint-staged",
         "gen:declarations": "tsc --p ./tsconfig.build.json",
+        "docs": "typedoc src --out apidocs --exclude '**/__tests__/**,**/node_modules/**,**/__fixtures__/**' --mode file --module commonjs",
         "build": "npm-run-all build:targets gen:declarations",
         "build:targets": "gulp build",
         "prebuild:targets": "rm -rf dist && rm -rf lib",
@@ -50,7 +51,8 @@
         ]
     },
     "dependencies": {
-        "isomorphic-fetch": "^2.2.1"
+        "isomorphic-fetch": "^2.2.1",
+        "typedoc": "^0.14.2"
     },
     "resolutions": {
         "babel-core": "^7.0.0-bridge.0"
