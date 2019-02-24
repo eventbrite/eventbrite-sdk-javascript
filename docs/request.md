@@ -98,7 +98,7 @@ sdk
         // equivalent to errorInfo.response.error
         console.log(parsedError.error);
 
-        // equivalent to errorInfo.response['error_desscripion']
+        // equivalent to errorInfo.response['error_description']
         console.log(parsedError.description);
     });
 ```
@@ -150,7 +150,7 @@ sdk
         // equivalent to errorInfo.response.error (would be "ARGUMENT_ERROR")
         console.log(parsedError.error);
 
-        // equivalent to errorInfo.response['error_desscripion']
+        // equivalent to errorInfo.response['error_description']
         console.log(parsedError.description);
     });
 ```
