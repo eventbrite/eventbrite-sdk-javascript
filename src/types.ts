@@ -45,5 +45,5 @@ export interface Pagination {
 
 export interface PaginatedResponse<T> {
     pagination?: Pagination;
-    [key: string]: T[] | Pagination;
+    [key: string]: T[] | Pagination | undefined;
 }
