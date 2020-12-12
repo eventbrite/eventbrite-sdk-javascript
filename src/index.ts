@@ -1,3 +1,4 @@
+import {extend} from 'just-extend';
 import {Sdk, SdkConfig, JSONRequest} from './types';
 import request from './request';
 import {UserApi} from './users';
@@ -7,23 +8,31 @@ export * from './constants';
 
 const DEFAULT_API_URL = 'https://www.eventbriteapi.com/v3';
 
-type MakeRequestFunction = (baseUrl: string, token: string) => JSONRequest;
+type MakeRequestFunction = (
+    baseUrl: string,
+    token: string,
+    defaultOptions?: object
+) => JSONRequest;
 
-const makeRequest: MakeRequestFunction = (baseUrl: string, token: string) => (
-    endpoint,
-    options = {}
-) => {
+const makeRequest: MakeRequestFunction = (
+    baseUrl: string,
+    token: string,
+    defaultOptions: object = {}
+) => (endpoint, options = {}) => {
     const url = `${baseUrl}${endpoint}`;
     let requestOptions = options;
 
     if (token) {
-        requestOptions = {
-            ...requestOptions,
-            headers: {
-                ...(requestOptions.headers || {}),
-                Authorization: `Bearer ${token}`,
+        requestOptions = extend(
+            true,
+            defaultOptions,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
             },
-        };
+            options
+        );
     }
 
     return request(url, requestOptions);
@@ -32,8 +41,9 @@ const makeRequest: MakeRequestFunction = (baseUrl: string, token: string) => (
 const eventbrite = ({
     baseUrl = DEFAULT_API_URL,
     token,
+    defaultOptions,
 }: SdkConfig = {}): Sdk => {
-    const jsonRequest = makeRequest(baseUrl, token);
+    const jsonRequest = makeRequest(baseUrl, token, defaultOptions);
 
     return {
         request: jsonRequest,

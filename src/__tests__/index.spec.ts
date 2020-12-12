@@ -96,6 +96,24 @@ describe('request', () => {
         );
     });
 
+    it('allows passing default request options', async() => {
+        const {request} = eventbrite({
+            defaultOptions: {credentials: 'same-origin'},
+        });
+
+        await expect(request('/users/me/')).resolves.toEqual(
+            MOCK_USERS_ME_RESPONSE_DATA
+        );
+
+        expect(getMockFetch()).toHaveBeenCalledTimes(1);
+        expect(getMockFetch()).toHaveBeenCalledWith(
+            'https://www.eventbriteapi.com/v3/users/me/',
+            expect.objectContaining({
+                credentials: 'same-origin',
+            })
+        );
+    });
+
     describe('users collection', () => {
         it('should return an object of functions', () => {
             const {users} = eventbrite({

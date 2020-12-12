@@ -4,6 +4,7 @@ import {OrganizationsApi} from './organizations';
 export interface SdkConfig {
     token?: string;
     baseUrl?: string;
+    defaultOptions?: object;
 }
 
 export type JSONRequest<T = {}> = (
