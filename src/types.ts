@@ -29,8 +29,8 @@ export interface JSONResponseData {
     error?: string;
     error_description?: string;
     error_detail?: {
-        ARGUMENTS_ERROR?: ArgumentErrors;
         [propName: string]: any;
+        ARGUMENTS_ERROR?: ArgumentErrors;
     };
 }
 
@@ -44,6 +44,6 @@ export interface Pagination {
 }
 
 export interface PaginatedResponse<T> {
-    pagination?: Pagination;
     [key: string]: T[] | Pagination | undefined;
+    pagination?: Pagination;
 }
