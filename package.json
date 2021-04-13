@@ -50,7 +50,7 @@
         ]
     },
     "dependencies": {
-        "isomorphic-fetch": "^2.2.1"
+        "isomorphic-fetch": "^3.0.0"
     },
     "resolutions": {
         "babel-core": "^7.0.0-bridge.0"
